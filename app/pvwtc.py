@@ -20,6 +20,7 @@ import pvwtc_model as pvwtc_model
 
 # Create Flask application
 # app = Flask(__name__)
+# app создается в __init__
 app.config.from_pyfile('config.py')
 db = SQLAlchemy(app)
 
@@ -41,7 +42,9 @@ class LoginForm(form.Form):
             raise validators.ValidationError('Invalid password')
 
     def get_user(self):
-        return db.session.query(pvwtc_model.User).filter_by(login=self.login.data).first()
+        user = db.session.query(pvwtc_model.User).filter_by(login=self.login.data).first()
+        app.logger.debug('User: %s', user.login)
+        return user
 
 
 class PasswordForm(Form):
