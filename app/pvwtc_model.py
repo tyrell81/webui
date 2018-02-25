@@ -17,6 +17,7 @@ app = Flask(__name__)
 app.config.from_pyfile('config.py')
 db = SQLAlchemy(app)
 
+
 # Create user model.
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -54,3 +55,28 @@ class employee(db.Model):
 
     def __unicode__(self):
         return self.username
+
+# Создание БД
+def build_biosmart_db():
+    import string
+    import random
+
+    print "DEBUG: build_biosmart_db()"
+    # db.drop_all()
+    db.create_all()
+    # passwords are hashed, to use plaintext passwords instead:
+    # test_user = User(login="test", password="test")    
+    default_user = User(login="root", password=generate_password_hash("bio0root"))
+    if db.session.query(User).filter_by(login=default_user.login).count() == 0:        
+        db.session.add(default_user)
+        db.session.commit()
+    return
+
+# START model
+print "DEBUG: START model"
+
+try:
+    db.connect()
+    db.execute("select * from user")
+except:
+    build_biosmart_db()

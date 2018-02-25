@@ -9,7 +9,7 @@ from flask_admin.contrib import sqla
 from flask_admin import helpers, expose, BaseView
 import flask_admin as admin
 import flask_login as login
-import pvwtc_db as pvwtc_db
+import pvwtc_model as pvwtc_model
 
 
 # Create Flask application

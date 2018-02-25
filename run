@@ -3,4 +3,4 @@ echo virtualenv env
 echo source env/bin/activate
 echo pip install -r requirements.txt
 sh remove_pyc.sh
-python app.py
+python run.py

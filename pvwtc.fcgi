@@ -1,7 +1,7 @@
 #!/usr/bin/python
 #: optional path to your local python site-packages folder
 import sys
-sys.path.insert(0, '/home/vital/work/pvwtc2-web/venv/local/lib/python2.7/site-packages')
+sys.path.insert(0, '/home/root/webui/env/local/lib/python2.7/site-packages')
 
 from flup.server.fcgi import WSGIServer
 from app import app

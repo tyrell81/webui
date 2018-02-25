@@ -1,5 +1,6 @@
 #!env/bin/python
 # coding=utf-8
+
 import os
 from flask import Flask, url_for, redirect, render_template, request, Response
 from flask_sqlalchemy import SQLAlchemy
@@ -11,17 +12,18 @@ from flask_admin.contrib import sqla
 from flask_admin import helpers, expose, BaseView
 from flask_admin.base import MenuLink, Admin, BaseView, expose
 from werkzeug.security import generate_password_hash, check_password_hash
-import pvwtc_db as pvwtc_db
+
+from app import app
 import pvwtc_forms as pvwtc_forms
+import pvwtc_model as pvwtc_model
 
 
 # Create Flask application
-app = Flask(__name__)
+# app = Flask(__name__)
 app.config.from_pyfile('config.py')
 db = SQLAlchemy(app)
 
-
-# Define login and registration forms (for flask-login)
+# Define login form (for flask-login)
 class LoginForm(form.Form):
     login = fields.StringField(validators=[validators.required()])
     password = fields.PasswordField(validators=[validators.required()])
@@ -39,7 +41,7 @@ class LoginForm(form.Form):
             raise validators.ValidationError('Invalid password')
 
     def get_user(self):
-        return db.session.query(pvwtc_db.User).filter_by(login=self.login.data).first()
+        return db.session.query(pvwtc_model.User).filter_by(login=self.login.data).first()
 
 
 class PasswordForm(Form):
@@ -56,7 +58,7 @@ def init_login():
     # Create user loader function
     @login_manager.user_loader
     def load_user(user_id):
-        return db.session.query(pvwtc_db.User).get(user_id)
+        return db.session.query(pvwtc_model.User).get(user_id)
 
 
 # Create customized model view class
@@ -65,7 +67,7 @@ class PvwtcModelView(sqla.ModelView):
         return login.current_user.is_authenticated
 
     def inaccessible_callback(self, name, **kwargs):
-        return redirect(url_for('.login_view'))
+        return redirect(url_for('admin.login_view'))
 
 
 # Create customized index view class that handles login & registration
@@ -95,34 +97,34 @@ class PvwtcAdminIndexView(admin.AdminIndexView):
     def password_view(self):
         form = PasswordForm(request.form)
         if request.method == 'POST':
-			warn = ""
+            warn = ""
 
-			old_password=request.form['old_password']
-			new_password=request.form['new_password']
-			confirm_password=request.form['confirm_password']
+            old_password=request.form['old_password']
+            new_password=request.form['new_password']
+            confirm_password=request.form['confirm_password']
 
-			user = db.session.query(User).filter_by(login="root").first()
+            user = db.session.query(pvwtc_model.User).filter_by(login="root").first()
 
-			if new_password != confirm_password:
-				warn = "Password not match"
+            if new_password != confirm_password:
+                warn = "Password not match"
 
-			if not new_password or not confirm_password:
-				warn = "Please fill all data"
-			
-			if not check_password_hash(user.password, old_password):
-				warn = "Invalid old password"
+            if not new_password or not confirm_password:
+                warn = "Please fill all data"
+            
+            if not check_password_hash(user.password, old_password):
+                warn = "Invalid old password"
 
-			if warn:
-				return self.render('password.html', form=form, warn = warn)
+            if warn:
+                return self.render('password.html', form=form, warn = warn)
 
-			user.password = generate_password_hash(new_password)
-			db.session.commit()
+            user.password = generate_password_hash(new_password)
+            db.session.commit()
 
-			# Пароль изменен - логин заново
-			login.logout_user()
-			return redirect(url_for('.login_view'))
+            # Пароль изменен - логин заново
+            login.logout_user()
+            return redirect(url_for('.login_view'))
 
-		# password.html
+        # password.html
         return self.render('password.html', form=form)
 
     @expose('/logout/')
@@ -132,10 +134,18 @@ class PvwtcAdminIndexView(admin.AdminIndexView):
 
 # Flask views
 @app.route('/')
+# @app.route('/index')
 def index():
-    # return render_template('index.html')
+    # return render_template('index.html')    
     return redirect(url_for('admin.login_view'))
 
+@app.route('/hello')
+def hello():
+	return "HELLO WORLD"
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
 
 # Initialize flask-login
 init_login()
@@ -145,38 +155,6 @@ admin = admin.Admin(app, 'PVWTC2', index_view=PvwtcAdminIndexView(), base_templa
 
 # Add view
 admin.add_view(pvwtc_forms.SettingsView(name='Settings', endpoint='settings'))
-admin.add_view(PvwtcModelView(pvwtc_db.employee, db.session, category='Database'))
-admin.add_view(PvwtcModelView(pvwtc_db.User, db.session, category='Database'))
-
-# admin.add_view(PasswordView(name='', endpoint='password')) # name='Password'
-
-
-def build_biosmart_db():
-    """
-    Создание БД
-    """
-    import string
-    import random
-
-    # db.drop_all()
-    db.create_all()
-    # passwords are hashed, to use plaintext passwords instead:
-    # test_user = User(login="test", password="test")
-    default_user = pvwtc_db.User(login="root", password=generate_password_hash("bio0root"))
-    if db.session.query(pvwtc_db.User).filter_by(login=default_user.login).count() == 0:        
-        db.session.add(default_user)
-        db.session.commit()
-    return
-
-if __name__ == '__main__':
-    try:
-        db.connect()
-        db.execute("select * from user")
-    except:
-        build_biosmart_db()
-
-    # Start app
-    app.run(host='0.0.0.0', port=5001, debug=True)
-
-
+admin.add_view(PvwtcModelView(pvwtc_model.employee, db.session, category='Database'))
+admin.add_view(PvwtcModelView(pvwtc_model.User, db.session, category='Database'))
 
