@@ -1,1 +1,2 @@
-sudo /etc/init.d/lighttpd restart && watch systemctl -n30 status lighttpd.service
+# sudo apt-get install python-flup
+sudo /etc/init.d/lighttpd restart && watch systemctl -n40 status lighttpd.service

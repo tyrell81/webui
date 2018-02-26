@@ -41,10 +41,9 @@ class LoginForm(form.Form):
         # if user.password != self.password.data:
             raise validators.ValidationError('Invalid password')
 
-    def get_user(self):
-        user = db.session.query(pvwtc_model.User).filter_by(login=self.login.data).first()
-        app.logger.debug('User: %s', user.login)
-        return user
+    def get_user(self):        
+        # app.logger.debug("login: %s", self.login.data)
+        return db.session.query(pvwtc_model.User).filter_by(login=self.login.data).first()
 
 
 class PasswordForm(Form):
@@ -158,6 +157,22 @@ admin = admin.Admin(app, 'PVWTC2', index_view=PvwtcAdminIndexView(), base_templa
 
 # Add view
 admin.add_view(pvwtc_forms.SettingsView(name='Settings', endpoint='settings'))
+admin.add_view(PvwtcModelView(pvwtc_model.depositbox, db.session, category='Database'))
+admin.add_view(PvwtcModelView(pvwtc_model.depositbox_user, db.session, category='Database'))
 admin.add_view(PvwtcModelView(pvwtc_model.employee, db.session, category='Database'))
+admin.add_view(PvwtcModelView(pvwtc_model.holiday, db.session, category='Database'))
+admin.add_view(PvwtcModelView(pvwtc_model.image, db.session, category='Database'))
+admin.add_view(PvwtcModelView(pvwtc_model.log, db.session, category='Database'))
+admin.add_view(PvwtcModelView(pvwtc_model.log_image, db.session, category='Database'))
+admin.add_view(PvwtcModelView(pvwtc_model.migration, db.session, category='Database'))
+admin.add_view(PvwtcModelView(pvwtc_model.role, db.session, category='Database'))
+admin.add_view(PvwtcModelView(pvwtc_model.schedule_day, db.session, category='Database'))
+admin.add_view(PvwtcModelView(pvwtc_model.schedule, db.session, category='Database'))
+admin.add_view(PvwtcModelView(pvwtc_model.templ, db.session, category='Database'))
+admin.add_view(PvwtcModelView(pvwtc_model.templ_image, db.session, category='Database'))
+admin.add_view(PvwtcModelView(pvwtc_model.work_model_branch, db.session, category='Database'))
 admin.add_view(PvwtcModelView(pvwtc_model.User, db.session, category='Database'))
+
+
+
 
