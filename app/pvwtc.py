@@ -16,6 +16,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from app import app
 import pvwtc_forms as pvwtc_forms
 import pvwtc_model as pvwtc_model
+from pvwtc_info import *
 
 
 # Create Flask application
@@ -78,6 +79,11 @@ class PvwtcAdminIndexView(admin.AdminIndexView):
     def index(self):
         if not login.current_user.is_authenticated:
             return redirect(url_for('.login_view'))
+
+        # System info
+        self._template_args['info_date'] = pvwtc_info_date()
+        self._template_args['info_df'] = pvwtc_info_df()
+
         return super(PvwtcAdminIndexView, self).index()
 
     @expose('/login/', methods=('GET', 'POST'))
