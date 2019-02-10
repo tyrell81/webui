@@ -8,7 +8,7 @@ function include_navigation_html() {
         elmnt = z[i];
         /*search for elements with a certain atrribute:*/
         file = elmnt.getAttribute("include-navigation-html");
-        if (file) {            
+        if (file) {
             /* Make an HTTP request using the attribute value as the file name: */
             xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function () {
@@ -21,7 +21,8 @@ function include_navigation_html() {
                         for (i = 0; i < menu_html_elements.length; i++) {
                             if (menu_html_elements[i].getAttribute("href") == active_page) {
                                 menu_html_elements[i].classList.add("active");
-                             }
+                                break;
+                            }
                         }
                     }
                     if (this.status == 404) {
@@ -41,47 +42,53 @@ function include_navigation_html() {
     }
 }
 
-$(function() {
-  $("#side-menu").metisMenu();
+function login() {
+    var username = document.getElementById("Username").value;
+    var passwd = document.getElementById("Password").value;
+    alert("login: " + username + ":" + passwd);
+}
+
+$(function () {
+    $("#side-menu").metisMenu();
 });
 
 //Loads the correct sidebar on window load,
 //collapses the sidebar on window resize.
 // Sets the min-height of #page-wrapper to window size
-$(function() {
-  $(window).bind("load resize", function() {
-    topOffset = 50;
-    width =
-      this.window.innerWidth > 0 ? this.window.innerWidth : this.screen.width;
-    if (width < 768) {
-      $("div.navbar-collapse").addClass("collapse");
-      topOffset = 100; // 2-row-menu
-    } else {
-      $("div.navbar-collapse").removeClass("collapse");
-    }
+$(function () {
+    $(window).bind("load resize", function () {
+        topOffset = 50;
+        width =
+            this.window.innerWidth > 0 ? this.window.innerWidth : this.screen.width;
+        if (width < 768) {
+            $("div.navbar-collapse").addClass("collapse");
+            topOffset = 100; // 2-row-menu
+        } else {
+            $("div.navbar-collapse").removeClass("collapse");
+        }
 
-    height =
-      (this.window.innerHeight > 0
-        ? this.window.innerHeight
-        : this.screen.height) - 1;
-    height = height - topOffset;
-    if (height < 1) height = 1;
-    if (height > topOffset) {
-      $("#page-wrapper").css("min-height", height + "px");
-    }
-  });
+        height =
+            (this.window.innerHeight > 0
+                ? this.window.innerHeight
+                : this.screen.height) - 1;
+        height = height - topOffset;
+        if (height < 1) height = 1;
+        if (height > topOffset) {
+            $("#page-wrapper").css("min-height", height + "px");
+        }
+    });
 
-  var url = window.location;
-  var element = $("ul.nav a")
-    .filter(function() {
-      return this.href == url || url.href.indexOf(this.href) == 0;
-    })
-    .addClass("active")
-    .parent()
-    .parent()
-    .addClass("in")
-    .parent();
-  if (element.is("li")) {
-    element.addClass("active");
-  }
+    var url = window.location;
+    var element = $("ul.nav a")
+        .filter(function () {
+            return this.href == url || url.href.indexOf(this.href) == 0;
+        })
+        .addClass("active")
+        .parent()
+        .parent()
+        .addClass("in")
+        .parent();
+    if (element.is("li")) {
+        element.addClass("active");
+    }
 });
