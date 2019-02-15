@@ -28,11 +28,19 @@
             <div id="page-wrapper">
                 <div class="container-fluid">
 
+                    <!-- header -->
                     <div class="row">
                         <div class="col-lg-12">
                             <h1 class="page-header">Info</h1>
-                        </div><!-- /.col-lg-12 -->                        
-                    </div><!-- /.row -->
+                        </div>
+                    </div>
+                    
+                    <!-- alert -->
+                    <div id="alert" class="alert alert-danger mod-content" style="display: none;">
+                        <div class="panel-body">
+                            ERROR
+                        </div>
+                    </div>
 
                     <!-- Content -->
                     <!--<div class="row">
@@ -50,25 +58,27 @@
                             </div>
                         </div>
                     </div>-->
-                    <div class="row">
+                    <div id="data" class="row">
                             <div class="col-lg-12">
-                                <div class="panel panel-default">
-                                    <div class="panel-body">
-                                        <!-- <b>Items-Values</b> -->
-                                        <div class="row show-grid">
-                                            <div class="col-xs-6 text-right">Item 1</div>
-                                            <div class="col-xs-6">Value 1</div>
-                                            <br/>
-                                            <div class="col-xs-6 text-right">Item 2</div>
-                                            <div class="col-xs-6">Value 2</div>
+                                <div class="panel">
+                                    <div class="panel-body mod-content">
+                                        <div class="row info-grid">
+                                            <table class="table">
+                                                <tr><td>Serial number:</td><td id="serial"></td></tr>
+                                                <tr><td>Firmware version:</td><td id="software_version"></td></tr>
+                                                <tr><td>Coprocessor version:</td><td id="coproc_version"></td></tr>
+                                                <tr><td>Scaner version:</td><td id="pvs_version"></td></tr>
+                                                <tr><td>Math lib version:</td><td id="math_version"></td></tr>
+                                                <tr><td>Qt version:</td><td id="qt_ver"></td></tr>
+                                                <tr><td>OS info:</td><td id="uname"></td></tr>
+                                                <tr><td>Templates count:</td><td id="templ_count"></td></tr>
+                                                <tr><td>Employees count:</td><td id="employee_count"></td></tr>
+                                                <tr><td>IP address:</td><td id="ip_term"></td></tr>
+                                                <tr><td>Studio connected:</td><td id="studio_connected"></td></tr>
+                                                <tr><td>Studio IP address:</td><td id="ip_studio"></td></tr>
+                                                <tr><td>Ident server connected:</td><td id="ident_server_connected"></td></tr>
+                                            </table>
                                         </div>
-                                        <div class="row show-grid">
-                                                <div class="col-xs-6 text-right">Item 3</div>
-                                                <div class="col-xs-6">Value 3</div>
-                                                <br/>
-                                                <div class="col-xs-6 text-right">Item 4</div>
-                                                <div class="col-xs-6">Value 4</div>
-                                            </div>
                                     </div>
                                 </div>
                             </div>

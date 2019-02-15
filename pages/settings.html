@@ -1,46 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="">
-        <title>Biosmart PVWTC</title>        
-        <link href="../css/bootstrap.min.css" rel="stylesheet"><!-- Bootstrap Core CSS -->        
-        <link href="../css/metisMenu.min.css" rel="stylesheet"><!-- MetisMenu CSS -->        
-        <link href="../css/timeline.css" rel="stylesheet"><!-- Timeline CSS -->        
-        <link href="../css/startmin.css" rel="stylesheet"><!-- Custom CSS -->        
-        <link href="../css/morris.css" rel="stylesheet"><!-- Morris Charts CSS -->        
-        <link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css"><!-- Custom Fonts -->
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Biosmart PVWTC</title>
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/metisMenu.min.css" rel="stylesheet">
+    <link href="../css/timeline.css" rel="stylesheet">
+    <link href="../css/startmin.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!--[if lt IE 9]>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
-    </head>
-    <body>
-        <div id="wrapper">
-            <!-- Navigation -->
-            <div include-navigation-html="navigation.html"></div>
+</head>
 
-            <!-- Page Content -->
-            <div id="page-wrapper">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <h1 class="page-header">Settings</h1>
-                        </div><!-- /.col-lg-12 -->                        
-                    </div><!-- /.row -->                    
-                </div><!-- /.container-fluid -->                
+<body>
+    <div id="wrapper">
+        <!-- Navigation -->
+        <div include-navigation-html="navigation.html"></div>
+
+        <!-- Page Content -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <!-- header -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">Settings</h1>
+                    </div>
+                </div>
+                <!-- alert -->
+                <div id="alert" class="alert alert-danger mod-content" style="display: inherit;">
+                    <div class="panel-body">
+                        ERROR
+                    </div>
+                </div>
+                <div id="data" class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default mod-content">
+                            <div class="panel-heading">
+                                Core
+                            </div>
+                            <div class="panel-body">
+                                <table class="settings-table">
+                                    <tr>
+                                        <td style="width: 30%"></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right"><label>Work model</label></td>
+                                        <td id="work_model">
+                                            <select class="form-control">
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                                <option>5</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right"><label>Matching level</label></td>
+                                        <td id="matching_level">
+                                            <select class="form-control">
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                                <option>5</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right"><label>Distinct hand kind while ident</label></td>
+                                        <td>
+                                            <input type="checkbox" value="" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right"><label>Use preselect</label></td>
+                                        <td>
+                                            <input type="checkbox" value="" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right"><label>Save debug info</label></td>
+                                        <td>
+                                            <input type="checkbox" value="" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right"><label>Save front camera image</label></td>
+                                        <td>
+                                            <input type="checkbox" value="" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right"><label>Max right hands </label></td>
+                                        <td>
+                                            <input class="form-control">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right"><label>Max left Hands </label></td>
+                                        <td> <input class="form-control"> </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right"><label>Min right hands </label></td>
+                                        <td> <input class="form-control"> </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right"><label>Min left Hands </label></td>
+                                        <td> <input class="form-control"> </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right"><label>Web password </label></td>
+                                        <td> <input class="form-control"> </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right"><label>Minimal quality </label></td>
+                                        <td> <input class="form-control"> </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right"><label>Minimal identification quality </label></td>
+                                        <td> <input class="form-control"> </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right"><label>Studio connection warning timeout (sec) </label>
+                                        </td>
+                                        <td> <input class="form-control"> </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right"><label>Studio connection block timeout (min) </label>
+                                        </td>
+                                        <td> <input class="form-control"> </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right"><label>Run SNMP agent</label></td>
+                                        <td><input type="checkbox" value="" /></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div> <!-- /Core -->
+
+                        <div class="panel panel-default mod-content">
+                            <div class="panel-heading">
+                                PV WTC 2
+                            </div>
+                            <div class="panel-body">
+                                <table class="settings-table">
+                                    <tr>
+                                        <td style="width: 30%"></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right"><label>Test</label></td>
+                                        <td id="work_model">
+                                            <select class="form-control">
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                                <option>5</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div> 
+                        </div> <!-- /PV WTC 2 -->
+
+                    </div>
+                </div>
             </div>
-            <!--- /Page Content ---  /#page-wrapper --->
+        </div>
+        <!-- /Page Content -->
 
-        </div><!-- /#wrapper -->
-        <script src="../js/jquery.min.js"></script><!-- jQuery -->
-        <script src="../js/bootstrap.min.js"></script><!-- Bootstrap Core JavaScript -->
-        <script src="../js/metisMenu.min.js"></script><!-- Metis Menu Plugin JavaScript -->
-        <script src="../js/startmin.js"></script><!-- Custom Theme JavaScript -->
-    </body>
+    </div><!-- /#wrapper -->
+
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/metisMenu.min.js"></script>
+    <script src="../js/startmin.js"></script>
+</body>
+
 </html>
